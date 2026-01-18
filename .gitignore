@@ -25,3 +25,8 @@ ENV/
 Task2/raw_pages/
 Task2/venv/
 Task2/pages_list.json
+
+# Task3 specific
+Task3/venv/
+Task3/chroma_db/
+Task3/__pycache__/
