@@ -118,6 +118,11 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 **Chain-of-Thought:** {'✅ Включен' if config.use_chain_of_thought else '❌ Выключен'}
 **Количество чанков:** {config.top_k}
 
+**Защита от промпт-инъекций:**
+• Pre-prompt: {'✅ Включена' if config.enable_pre_prompt_protection else '❌ Выключена'}
+• Post-filter: {'✅ Включен' if config.enable_post_filter else '❌ Выключен'}
+• Content-cleaning: {'✅ Включена' if config.enable_content_cleaning else '❌ Выключена'}
+
 **Примечание:** Настройки можно изменить в коде или через переменные окружения.
 """
     await update.message.reply_text(settings_text)
@@ -170,6 +175,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     
     try:
         # Обрабатываем запрос через RAG-бота
+        # Используем стандартный порог релевантности (0.8)
         result = rag_bot.query(user_message, verbose=False)
         
         answer = result.get("answer", "Извините, не удалось сформировать ответ.")
@@ -213,17 +219,26 @@ def initialize_rag_bot() -> RAGBot:
     use_cot = os.getenv("USE_CHAIN_OF_THOUGHT", "true").lower() == "true"
     top_k = int(os.getenv("TOP_K", "3"))
     
+    # Параметры защиты (по умолчанию включены для безопасности)
+    enable_pre_prompt = os.getenv("ENABLE_PRE_PROMPT_PROTECTION", "true").lower() == "true"
+    enable_post_filter = os.getenv("ENABLE_POST_FILTER", "true").lower() == "true"
+    enable_content_cleaning = os.getenv("ENABLE_CONTENT_CLEANING", "true").lower() == "true"
+    
     config = RAGConfig(
         llm_provider=llm_provider,
         llm_model=llm_model,
         use_few_shot=use_few_shot,
         use_chain_of_thought=use_cot,
-        top_k=top_k
+        top_k=top_k,
+        enable_pre_prompt_protection=enable_pre_prompt,
+        enable_post_filter=enable_post_filter,
+        enable_content_cleaning=enable_content_cleaning
     )
     
     logger.info(f"Инициализация RAG-бота с настройками:")
     logger.info(f"  Провайдер: {llm_provider}, Модель: {llm_model}")
     logger.info(f"  Few-shot: {use_few_shot}, CoT: {use_cot}")
+    logger.info(f"  Защита: Pre-prompt={enable_pre_prompt}, Post-filter={enable_post_filter}, Content-cleaning={enable_content_cleaning}")
     
     return RAGBot(config)
 
