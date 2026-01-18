@@ -30,3 +30,9 @@ Task2/pages_list.json
 Task3/venv/
 Task3/chroma_db/
 Task3/__pycache__/
+
+# Task4 specific
+Task4/__pycache__/
+Task4/*.log
+Task4/.env
+Task4/telegram_bot.log
