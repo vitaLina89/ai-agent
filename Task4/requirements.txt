@@ -1,0 +1,32 @@
+# Зависимости для RAG-бота
+
+# LangChain и векторная база (из Task3)
+langchain>=0.1.0
+langchain-community>=0.0.20
+langchain-huggingface>=0.0.3
+langchain-chroma>=0.1.0
+langchain-text-splitters>=1.0.0
+
+# Эмбеддинги (та же модель, что в Task3)
+sentence-transformers>=2.2.0
+
+# Векторная БД
+chromadb>=0.4.0
+
+# PyTorch для моделей
+torch>=2.0.0
+
+# OpenAI API (для LLM)
+openai>=1.0.0
+
+# Опционально: для YandexGPT
+# yandexcloud>=0.220.0
+
+# Для локальной LLM через Ollama
+requests>=2.31.0
+
+# Telegram Bot API
+python-telegram-bot>=20.0
+
+# Опционально: для загрузки .env файлов
+python-dotenv>=1.0.0

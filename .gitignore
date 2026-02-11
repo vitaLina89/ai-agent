@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.log
+.DS_Store
+
+# Task2 specific
+Task2/raw_pages/
+Task2/venv/
+Task2/pages_list.json
+
+# Task3 specific
+Task3/venv/
+Task3/chroma_db/
+Task3/__pycache__/
+
+# Task4 specific
+Task4/__pycache__/
+Task4/*.log
+Task4/.env
+Task4/telegram_bot.log
